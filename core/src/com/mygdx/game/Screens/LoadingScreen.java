@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.APGAME;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import java.awt.*;
 
 public class LoadingScreen implements Screen {
     private APGAME game;

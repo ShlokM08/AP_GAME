@@ -9,7 +9,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.APGAME;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -21,6 +28,7 @@ import static com.badlogic.gdx.Gdx.app;
 public class MainMenuScreen implements Screen {
     private APGAME game;
     private Stage stage;
+    private TextButton buttonPlay,buttonExit,buttonSavedGames;
     private Image image;
     private Texture texture;
 
@@ -52,6 +60,26 @@ public class MainMenuScreen implements Screen {
     }
     @Override
     public void show() {
+
+       // System.out.println("MAIN MENU");
+        Gdx.input.setInputProcessor(stage);
+        exit_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+
+
+        this.skin = new Skin();
+        this.skin.addRegions(new TextureAtlas(Gdx.files.internal("flat-earth-ui.atlas")));
+        this.skin.add("default-font",new BitmapFont());
+        this.skin.load(Gdx.files.internal("flat-earth-ui.json"));
+
+        initButtons();
+
+
 
     }
 
