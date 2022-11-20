@@ -1,5 +1,7 @@
 package com.mygdx.game.Screens;
 
+//package com.mygdx.game.Screens;
+
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,27 +16,26 @@ import com.mygdx.game.APGAME;
 
 import java.awt.*;
 
-public class LoadingScreen implements Screen {
+public class MainMenuScreen implements Screen {
     private APGAME game;
     private Stage stage;
-    private Texture texture;
     private Image image;
+    privaTexture texture;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Viewport viewPort;
 
 
 
-    public LoadingScreen(APGAME game){
+    public MainMenuScreen(APGAME game){
         this.game= game;
-        //this.stage = new Stage();
+        this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        texture= new Texture("TankStarsLoadingScreen.jpg");
-        
+        texture=new Texture("MainMenuScreen.jpg");
+        image = new Image(texture);
         gamecam = new OrthographicCamera();
         gamePort = new StretchViewport(3000,2400,gamecam);
         viewPort = new StretchViewport(1280, 640, gamecam);
-        //stage.addActor();
 
     }
     @Override
@@ -53,7 +54,7 @@ public class LoadingScreen implements Screen {
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         game.batch.draw(texture,-640,-320);
-        //game.batch.draw(game.batch,"hello",120,120);
+        //game.batch.draw(game.batch.draw();,"hello",120,120);
         if (Gdx.input.isTouched()){
             game.setScreen(new MainMenuScreen(game));
             dispose();
