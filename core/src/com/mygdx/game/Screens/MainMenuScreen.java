@@ -32,8 +32,8 @@ public class MainMenuScreen implements Screen {
     private Image image;
     private Texture texture;
 
-    private Texture exit_button_image;
-    private Image exit_button;
+    private Texture exit_button_image,newgame_button_image,loadgame_button_image;
+    private Image exit_button,newgame_button,loadgame_button;
     private OrthographicCamera gamecam;
     private  Skin skin;
 
@@ -46,14 +46,10 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         texture=new Texture("MainMenuScreen.jpg");
         image = new Image(texture);
+        initButtons();
 
-        exit_button_image=new Texture("exit.png");
-        exit_button = new Image(exit_button_image);
-        exit_button.setSize(200,60);
-        exit_button.setPosition(1050,70);
 
-        stage.addActor(image);
-        stage.addActor(exit_button);
+
         //show();
 
 
@@ -77,7 +73,7 @@ public class MainMenuScreen implements Screen {
         this.skin.add("default-font",new BitmapFont());
         this.skin.load(Gdx.files.internal("flat-earth-ui.json"));
 
-        initButtons();
+        //initButtons();
 
 
 
@@ -137,15 +133,41 @@ public class MainMenuScreen implements Screen {
 
 
 private void initButtons(){
-    buttonPlay = new TextButton("Play",skin,"default");
+    /*buttonPlay = new TextButton("Play",skin,"default");
     buttonPlay.setSize(200,60);
     buttonPlay.setPosition(50,70);
-    stage.addActor(buttonPlay);
+    stage.addActor(buttonPlay);*/
 
-    buttonSavedGames = new TextButton("Saved Games",skin,"default");
+    newgame_button_image=new Texture("newgame_sticker.png");
+    newgame_button = new Image(newgame_button_image);
+    newgame_button.setSize(200,60);
+    newgame_button.setPosition(50,70);
+    stage.addActor(image);
+    stage.addActor(newgame_button);
+
+
+    loadgame_button_image=new Texture("loadgame_sticker.png");
+    loadgame_button = new Image(loadgame_button_image);
+    loadgame_button.setSize(200,80);
+    loadgame_button.setPosition(550,70);
+    stage.addActor(image);
+    stage.addActor(loadgame_button);
+
+
+    exit_button_image=new Texture("exit.png");
+    exit_button = new Image(exit_button_image);
+    exit_button.setSize(200,60);
+    exit_button.setPosition(1050,70);
+
+    stage.addActor(image);
+    stage.addActor(exit_button);
+
+
+
+    /*buttonSavedGames = new TextButton("Saved Games",skin,"default");
     buttonSavedGames.setSize(350,100);
     buttonSavedGames.setPosition(470,50);
-    stage.addActor(buttonSavedGames);
+    stage.addActor(buttonSavedGames);*/
 
     /*buttonExit = new TextButton("Exit",skin,"default");
     buttonExit.setSize(200,60);
