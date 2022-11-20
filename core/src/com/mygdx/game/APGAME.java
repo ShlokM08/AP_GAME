@@ -13,7 +13,7 @@ import com.mygdx.game.Screens.LoadingScreen;
 public class APGAME extends Game {
 	public BitmapFont font;
 	public SpriteBatch batch;
-	Texture img;
+
 
 	@Override
 	public void create () {

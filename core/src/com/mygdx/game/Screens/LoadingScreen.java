@@ -12,54 +12,41 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.APGAME;
 
-import java.awt.*;
-
 public class LoadingScreen implements Screen {
     private APGAME game;
     private Stage stage;
     private Texture texture;
     private Image image;
     private OrthographicCamera gamecam;
-    private Viewport gamePort;
-    private Viewport viewPort;
 
 
 
     public LoadingScreen(APGAME game){
         this.game= game;
-        //this.stage = new Stage();
+        gamecam = new OrthographicCamera();
+        this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         Gdx.input.setInputProcessor(stage);
         texture= new Texture("TankStarsLoadingScreen.jpg");
-        
-        gamecam = new OrthographicCamera();
-        gamePort = new StretchViewport(3000,2400,gamecam);
-        viewPort = new StretchViewport(1280, 640, gamecam);
-        //stage.addActor();
+        image = new Image(texture);
+        stage.addActor(image);
 
     }
     @Override
     public void show() {
 
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        game.batch.setProjectionMatrix(gamecam.combined);
         update(delta);
         stage.draw();
-
-
-        game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
-        game.batch.draw(texture,-640,-320);
-        //game.batch.draw(game.batch,"hello",120,120);
         if (Gdx.input.isTouched()){
             game.setScreen(new MainMenuScreen(game));
-            dispose();
         }
         game.batch.end();
-        //game.batch.begin();
 
     }
 
@@ -69,8 +56,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        gamePort.update(width, height);
-        viewPort.update(width, height);
+        stage.getViewport().update(width, height, true);
 
 
     }
@@ -92,6 +78,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
 
 
     }

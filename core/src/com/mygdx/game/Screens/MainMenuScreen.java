@@ -1,6 +1,5 @@
 package com.mygdx.game.Screens;
 
-//package com.mygdx.game.Screens;
 
 
 import com.badlogic.gdx.Game;
@@ -13,29 +12,42 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.APGAME;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.awt.*;
+
+import static com.badlogic.gdx.Gdx.app;
 
 public class MainMenuScreen implements Screen {
     private APGAME game;
     private Stage stage;
     private Image image;
-    privaTexture texture;
+    private Texture texture;
+
+    private Texture exit_button_image;
+    private Image exit_button;
     private OrthographicCamera gamecam;
-    private Viewport gamePort;
-    private Viewport viewPort;
+    private  Skin skin;
 
 
 
     public MainMenuScreen(APGAME game){
         this.game= game;
-        this.stage = new Stage();
+        gamecam = new OrthographicCamera();
+        this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         Gdx.input.setInputProcessor(stage);
         texture=new Texture("MainMenuScreen.jpg");
         image = new Image(texture);
-        gamecam = new OrthographicCamera();
-        gamePort = new StretchViewport(3000,2400,gamecam);
-        viewPort = new StretchViewport(1280, 640, gamecam);
+
+        exit_button_image=new Texture("exit.png");
+        exit_button = new Image(exit_button_image);
+        exit_button.setSize(200,60);
+        exit_button.setPosition(1050,70);
+
+        stage.addActor(image);
+        stage.addActor(exit_button);
+        //show();
+
 
     }
     @Override
@@ -45,20 +57,19 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.batch.setProjectionMatrix(gamecam.combined);
+
         update(delta);
         stage.draw();
 
 
-        game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
-        game.batch.draw(texture,-640,-320);
         //game.batch.draw(game.batch.draw();,"hello",120,120);
-        if (Gdx.input.isTouched()){
-            game.setScreen(new MainMenuScreen(game));
-            dispose();
-        }
+//        if (Gdx.input.isTouched()){
+//            game.setScreen(new MainMenuScreen(game));
+//            dispose();
+//        }
         game.batch.end();
         //game.batch.begin();
 
@@ -70,8 +81,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        gamePort.update(width, height);
-        viewPort.update(width, height);
+        stage.getViewport().update(width, height, true);
 
 
     }
@@ -96,4 +106,39 @@ public class MainMenuScreen implements Screen {
 
 
     }
+
+
+private void initButtons(){
+    buttonPlay = new TextButton("Play",skin,"default");
+    buttonPlay.setSize(200,60);
+    buttonPlay.setPosition(50,70);
+    stage.addActor(buttonPlay);
+
+    buttonSavedGames = new TextButton("Saved Games",skin,"default");
+    buttonSavedGames.setSize(350,100);
+    buttonSavedGames.setPosition(470,50);
+    stage.addActor(buttonSavedGames);
+
+    /*buttonExit = new TextButton("Exit",skin,"default");
+    buttonExit.setSize(200,60);
+    buttonExit.setPosition(1050,70);
+    stage.addActor(buttonExit);
+
+
+
+
+    buttonExit.addListener(new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+            Gdx.app.exit();
+        }*/
+
+
+
+
+
+}
+private void own_ICON(){
+
+}
 }
