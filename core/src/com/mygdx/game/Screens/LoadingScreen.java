@@ -29,7 +29,7 @@ public class LoadingScreen implements Screen {
         gamecam = new OrthographicCamera();
         this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         Gdx.input.setInputProcessor(stage);
-        texture= new Texture("TankStarsLoadingScreen.jpg");
+        texture= new Texture("LoadSCREEN.jpg");
         image = new Image(texture);
         stage.addActor(image);
 
