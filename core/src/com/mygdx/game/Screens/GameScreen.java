@@ -20,8 +20,8 @@ public class GameScreen implements Screen {
 
     private OrthographicCamera gamecam;
     private Stage stage;
-    private Image image;
-    private Texture texture;
+    private Image image,options;
+    private Texture texture,options_texture;
 
     public GameScreen(APGAME game){
         System.out.println("gamescreen");
@@ -32,6 +32,18 @@ public class GameScreen implements Screen {
         texture = new Texture("GAMESCREEN.png");
         image = new Image(texture);
         System.out.println("s");
+        stage.addActor(image);
+
+
+
+
+
+
+        options_texture = new Texture("GameScreen_optionsbutton.png");
+        options = new Image(options_texture);
+        options.setPosition(100, 125);
+        options.setSize(1000, 500);
+        stage.addActor(options);
         stage.addActor(image);
 
     }
