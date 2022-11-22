@@ -246,8 +246,6 @@ public class TankSelection implements Screen {
 
     }
 
-
-
     public void ChooseButton(){
     System.out.println("its here");
     select_button_image = new Texture("CHOOSE_BUTTON.jpg");
