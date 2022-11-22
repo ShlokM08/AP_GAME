@@ -1,69 +1,69 @@
 package com.mygdx.game.Screens;
 
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.*;
-import com.mygdx.game.APGAME;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.APGAME;
 
-import java.awt.*;
+import java.util.ArrayList;
 
-public class LoadingScreen implements Screen {
+public class GameScreen implements Screen {
+
     private APGAME game;
-    private Stage stage;
-    private Texture texture;
-    private Image image;
+
     private OrthographicCamera gamecam;
+    private Stage stage;
+    private Image image;
+    private Texture texture;
 
-
-
-    public LoadingScreen(APGAME game){
-        this.game= game;
+    public GameScreen(APGAME game){
+        System.out.println("gamescreen");
+        this.game = game;
         gamecam = new OrthographicCamera();
         this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         Gdx.input.setInputProcessor(stage);
-        texture= new Texture("Mainmenu_SCREEN.png");
+        texture = new Texture("GAMESCREEN.png");
         image = new Image(texture);
+        System.out.println("s");
         stage.addActor(image);
-        /*Sound music_background = Gdx.audio.newSound(Gdx.files.internal("/Users/vishnu/Desktop/TANKSTARS/assets/ FlackoLoko.mp3"));
-        music_background.play();*/
 
     }
     @Override
     public void show() {
-
 
     }
 
     @Override
     public void render(float delta) {
         game.batch.setProjectionMatrix(gamecam.combined);
+
         update(delta);
         stage.draw();
+
         game.batch.begin();
-        if (Gdx.input.isTouched()){
-            game.setScreen(new MainMenuScreen(game));
-        }
+        //game.batch.draw(game.batch.draw();,"hello",120,120);
+//        if (Gdx.input.isTouched()){
+//            game.setScreen(new MainMenuScreen(game));
+//            dispose();
+//        }
         game.batch.end();
 
     }
 
-    public void update(float delta){
+    public void update(float delta) {
         stage.act(delta);
     }
 
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-
 
     }
 
@@ -84,8 +84,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void dispose() {
+
         stage.dispose();
-
-
     }
 }

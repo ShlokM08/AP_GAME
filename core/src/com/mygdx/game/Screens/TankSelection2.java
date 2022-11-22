@@ -14,7 +14,7 @@ import com.mygdx.game.APGAME;
 
 import java.util.ArrayList;
 
-public class TankSelection implements Screen {
+public class TankSelection2 implements Screen {
     private APGAME game;
 
     private ArrayList<Image> tankList = new ArrayList<Image>();
@@ -27,7 +27,9 @@ public class TankSelection implements Screen {
 
     private Texture tank1_name,tank2_name,tank3_name, right_button_image, Left_button_image, back_button_image,select_button_image;
     private Image right_button, left_button, back_button,tank1_button,tank2_button,tank3_button,select_button,player_2_button;
-    public TankSelection(APGAME game) {
+
+
+    public TankSelection2(APGAME game) {
         System.out.println("dei2");
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -60,20 +62,20 @@ public class TankSelection implements Screen {
         right_button.setPosition(1110, 300);
 
 
-        tank1_name = new Texture("pinky_tankname.png");
-        tank1_name_button = new Image(tank1_name);
+         tank1_name = new Texture("pinky_tankname.png");
+         tank1_name_button = new Image(tank1_name);
         tank1_name_button.setPosition(450, 500);
         tank1_name_button.setSize(300, 400);
 
 
-        tank2_name = new Texture("frost_tankname.png");
-        tank2_name_button = new Image(tank2_name);
+         tank2_name = new Texture("frost_tankname.png");
+         tank2_name_button = new Image(tank2_name);
         tank2_name_button.setPosition(100, 125);
         tank2_name_button.setSize(1000, 500);
 
 
-        tank3_name = new Texture("tiger_tankname.png");
-        tank3_name_button = new Image(tank3_name);
+         tank3_name = new Texture("tiger_tankname.png");
+         tank3_name_button = new Image(tank3_name);
         tank3_name_button.setPosition(100, 300);
         tank3_name_button.setSize(1000, 500);
 
@@ -102,14 +104,13 @@ public class TankSelection implements Screen {
 
 
 
-        player_2= new Texture("P1.png");
+        player_2= new Texture("P2.png");
         player_2_button=new Image(player_2);
         player_2_button.setPosition(60,10);
         player_2_button.setSize(250,100);
 
 
         tankList.add(tank1_button);
-        //tankList.add(tank1_name_button);
         tankList.add(tank2_button);
         tankList.add(tank3_button);
 
@@ -119,7 +120,6 @@ public class TankSelection implements Screen {
         stage.addActor(right_button);
         stage.addActor(tankList.get(tankSelected));
         stage.addActor(player_2_button);
-        //stage.addActor(select_button);
 
     }
 
@@ -199,7 +199,6 @@ public class TankSelection implements Screen {
                     }
                     if(tankList.get(tankSelected)==tank2_button){
 
-                        //stage.addActor(tank2_name_button);
                         tank2_name_button.remove()  ;
                     }
                     if(tankList.get(tankSelected)==tank3_button){
@@ -214,7 +213,6 @@ public class TankSelection implements Screen {
                         stage.addActor(tank1_button);
                         stage.addActor(tank1_name_button);
 
-                        //stage.addActor(tank1_name_button);
                     }
                     if (tankList.get(tankSelected) == tank2_button) {
                         stage.addActor(left_button);
@@ -227,48 +225,35 @@ public class TankSelection implements Screen {
                         stage.addActor(tank3_button);
                         stage.addActor(tank3_name_button);
                     }
-
-
-
-
-
                 }
-
-
-
             }
 
-
-
-
         });
-
-
     }
 
 
 
-    public void ChooseButton(){
-    System.out.println("its here");
-    select_button_image = new Texture("CHOOSE_BUTTON.jpg");
-    select_button = new Image(select_button_image);
-    select_button.setSize(100, 90);
-    select_button.setPosition(1000, 50);
+    private void ChooseButton(){
+        System.out.println("its here");
+        select_button_image = new Texture("CHOOSE_BUTTON.jpg");
+        select_button = new Image(select_button_image);
+        select_button.setSize(100, 90);
+        select_button.setPosition(1000, 50);
 
-    select_button.addListener(new InputListener(){
-        @Override
-        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            Image P1=tankList.get(tankSelected);
-            game.setScreen(new TankSelection2(game));
+        select_button.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Image P2=tankList.get(tankSelected);
+                game.setScreen(new GameScreen(game));
 
-            return true;
-        }
+                return true;
+            }
 
-    });
-    stage.addActor(select_button);
+        });
+        stage.addActor(select_button);
 
 
-}
+    }
 
     @Override
     public void render(float delta) {

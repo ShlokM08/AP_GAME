@@ -40,7 +40,7 @@ public class MainMenuScreen implements Screen {
         gamecam = new OrthographicCamera();
         this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         Gdx.input.setInputProcessor(stage);
-        texture=new Texture("Mainmenu_SCREEN.png");
+        texture=new Texture("LoadSCREEN.jpg");//LoadSCREEN.jpg
         image = new Image(texture);
         initButtons();
 
@@ -59,6 +59,7 @@ public class MainMenuScreen implements Screen {
         newgame_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("dei");
                 game.setScreen(new TankSelection(game));
 
             }
@@ -148,15 +149,15 @@ private void initButtons(){
 
     newgame_button_image=new Texture("newgame_sticker.png");
     newgame_button = new Image(newgame_button_image);
-    newgame_button.setSize(200,60);
-    newgame_button.setPosition(50,70);
+    newgame_button.setSize(220,80);
+    newgame_button.setPosition(30,70);
     stage.addActor(image);
     stage.addActor(newgame_button);
 
 
     loadgame_button_image=new Texture("loadgame_sticker.png");
     loadgame_button = new Image(loadgame_button_image);
-    loadgame_button.setSize(200,80);
+    loadgame_button.setSize(220,80);
     loadgame_button.setPosition(550,70);
     stage.addActor(image);
     stage.addActor(loadgame_button);
@@ -164,8 +165,8 @@ private void initButtons(){
 
     exit_button_image=new Texture("exit.png");
     exit_button = new Image(exit_button_image);
-    exit_button.setSize(200,60);
-    exit_button.setPosition(1050,70);
+    exit_button.setSize(220,80);
+    exit_button.setPosition(1060,70);
     stage.addActor(image);
     stage.addActor(exit_button);
 
