@@ -41,8 +41,8 @@ public class GameScreen implements Screen {
 
         options_texture = new Texture("GameScreen_optionsbutton.png");
         options = new Image(options_texture);
-        options.setPosition(100, 125);
-        options.setSize(1000, 500);
+        options.setPosition(5, 628);
+        options.setSize(105, 75);
         stage.addActor(options);
         stage.addActor(image);
 

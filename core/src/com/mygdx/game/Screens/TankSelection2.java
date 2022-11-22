@@ -64,41 +64,41 @@ public class TankSelection2 implements Screen {
 
          tank1_name = new Texture("pinky_tankname.png");
          tank1_name_button = new Image(tank1_name);
-        tank1_name_button.setPosition(450, 500);
-        tank1_name_button.setSize(300, 400);
+        tank1_name_button.setPosition(475, 530);
+        tank1_name_button.setSize(385, 100);
 
 
          tank2_name = new Texture("frost_tankname.png");
          tank2_name_button = new Image(tank2_name);
-        tank2_name_button.setPosition(100, 125);
-        tank2_name_button.setSize(1000, 500);
+        tank2_name_button.setPosition(475, 530);
+        tank2_name_button.setSize(355, 90);
 
 
          tank3_name = new Texture("tiger_tankname.png");
          tank3_name_button = new Image(tank3_name);
-        tank3_name_button.setPosition(100, 300);
-        tank3_name_button.setSize(1000, 500);
+        tank3_name_button.setPosition(475, 530);
+        tank3_name_button.setSize(375, 100);
 
 
 
         tank1 = new Texture("TANK1_IMAGE.png");
         tank1_button = new Image(tank1);
-        tank1_button.setPosition(100, 125);
-        tank1_button.setSize(1000, 500);
+        tank1_button.setPosition(300, 175);
+        tank1_button.setSize(650, 320);
 
 
 
         tank2 = new Texture("TANK2_IMAGE.png");
         tank2_button = new Image(tank2);
-        tank2_button.setPosition(100, 125);
-        tank2_button.setSize(1000, 500);
+        tank2_button.setPosition(400, 185);
+        tank2_button.setSize(480, 245);
 
 
 
         tank3 = new Texture("TANK3_IMAGE.png");
         tank3_button = new Image(tank3);
-        tank3_button.setPosition(100, 125);
-        tank3_button.setSize(1000, 500);
+        tank3_button.setPosition(435, 185);
+        tank3_button.setSize(480, 235);
 
 
 
@@ -106,8 +106,8 @@ public class TankSelection2 implements Screen {
 
         player_2= new Texture("P2.png");
         player_2_button=new Image(player_2);
-        player_2_button.setPosition(60,10);
-        player_2_button.setSize(250,100);
+        player_2_button.setPosition(1000,640);
+        player_2_button.setSize(180,65);
 
 
         tankList.add(tank1_button);
@@ -237,8 +237,8 @@ public class TankSelection2 implements Screen {
         System.out.println("its here");
         select_button_image = new Texture("CHOOSE_BUTTON.jpg");
         select_button = new Image(select_button_image);
-        select_button.setSize(100, 90);
-        select_button.setPosition(1000, 50);
+        select_button.setSize(180, 70);
+        select_button.setPosition(550, 40);
 
         select_button.addListener(new InputListener(){
             @Override
