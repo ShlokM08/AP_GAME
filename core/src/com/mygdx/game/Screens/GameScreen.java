@@ -20,8 +20,8 @@ public class GameScreen implements Screen {
 
     private OrthographicCamera gamecam;
     private Stage stage;
-    private Image image,options;
-    private Texture texture,options_texture;
+    private Image image,options,settings;
+    private Texture texture,options_texture,settings_texture;
 
     public GameScreen(APGAME game){
         System.out.println("gamescreen");
@@ -39,6 +39,10 @@ public class GameScreen implements Screen {
 
 
 
+
+
+
+
         options_texture = new Texture("GameScreen_optionsbutton.png");
         options = new Image(options_texture);
         options.setPosition(5, 628);
@@ -49,6 +53,13 @@ public class GameScreen implements Screen {
     }
     @Override
     public void show() {
+
+        options.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new Options_gamescreen(game));
+
+    }});
 
     }
 
