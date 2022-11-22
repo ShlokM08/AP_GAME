@@ -38,16 +38,16 @@ public class Options_gamescreen implements Screen {
 
         resume_texture = new Texture("Resume_gaamescreen.png");
         resume = new Image(resume_texture);
-        resume.setPosition(5, 628);
-        resume.setSize(105, 75);
+        resume.setPosition(580, 405);
+        resume.setSize(221, 80);
         stage.addActor(resume);
         stage.addActor(image);
 
 
         savegame_texture = new Texture("Save gamescreen.png");
         savegame = new Image(savegame_texture);
-        savegame.setPosition(5, 628);
-        savegame.setSize(105, 75);
+        savegame.setPosition(580, 270);
+        savegame.setSize(205, 80);
         stage.addActor(savegame);
         stage.addActor(image);
 
@@ -55,8 +55,8 @@ public class Options_gamescreen implements Screen {
 
         exit_texture = new Texture("Main Menu_gamescreen.png");
         exit = new Image(exit_texture);
-        exit.setPosition(5, 628);
-        exit.setSize(105, 75);
+        exit.setPosition(580, 135);
+        exit.setSize(205, 80);
         stage.addActor(exit);
         stage.addActor(image);
 
@@ -65,8 +65,8 @@ public class Options_gamescreen implements Screen {
 
         close_texture = new Texture("cross.png");
         close = new Image(close_texture);
-        close.setPosition(200, 590);
-        close.setSize(105, 75);
+        close.setPosition(860, 540);
+        close.setSize(50, 40);
         stage.addActor(close);
         stage.addActor(image);
 

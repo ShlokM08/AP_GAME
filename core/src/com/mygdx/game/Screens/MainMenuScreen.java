@@ -149,7 +149,7 @@ private void initButtons(){
 
     newgame_button_image=new Texture("newgame_sticker.png");
     newgame_button = new Image(newgame_button_image);
-    newgame_button.setSize(220,80);
+    newgame_button.setSize(220,90);
     newgame_button.setPosition(30,70);
     stage.addActor(image);
     stage.addActor(newgame_button);
@@ -157,7 +157,7 @@ private void initButtons(){
 
     loadgame_button_image=new Texture("loadgame_sticker.png");
     loadgame_button = new Image(loadgame_button_image);
-    loadgame_button.setSize(220,80);
+    loadgame_button.setSize(220,90);
     loadgame_button.setPosition(550,70);
     stage.addActor(image);
     stage.addActor(loadgame_button);
@@ -165,7 +165,7 @@ private void initButtons(){
 
     exit_button_image=new Texture("exit.png");
     exit_button = new Image(exit_button_image);
-    exit_button.setSize(220,80);
+    exit_button.setSize(220,90);
     exit_button.setPosition(1060,70);
     stage.addActor(image);
     stage.addActor(exit_button);
@@ -188,8 +188,4 @@ private void initButtons(){
             Gdx.app.exit();
         }*/
 
-}
-private void own_ICON(){
-
-}
-}
+}}
