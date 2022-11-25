@@ -5,23 +5,23 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
 
-import java.util.ArrayList;
-
 public class GameScreen implements Screen {
 
     private APGAME game;
+    private Image image,resume,savegame,exit,close;
+    private Texture texture,resume_texture,savegame_texture,exit_texture,close_texture;
+
 
     private OrthographicCamera gamecam;
     private Stage stage;
-    private Image image,options,settings;
-    private Texture texture,options_texture,settings_texture;
+    private Image options,settings;
+    private Texture options_texture,settings_texture;
 
     public GameScreen(APGAME game){
         System.out.println("gamescreen");
@@ -38,11 +38,6 @@ public class GameScreen implements Screen {
 
 
 
-
-
-
-
-
         options_texture = new Texture("GameScreen_optionsbutton.png");
         options = new Image(options_texture);
         options.setPosition(0, 616);
@@ -50,14 +45,21 @@ public class GameScreen implements Screen {
         stage.addActor(options);
         stage.addActor(image);
 
+
+
+
+
+
+
     }
     @Override
     public void show() {
+        //options_menu();
 
         options.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new Options_gamescreen(game));
+                options_menu();
 
     }});
 
@@ -110,4 +112,93 @@ public class GameScreen implements Screen {
 
         stage.dispose();
     }
-}
+
+
+
+public void options_menu() {
+    System.out.println("options menu");
+    options_texture = new Texture("settingspopup.png");
+    options = new Image(options_texture);
+    options.setPosition(580, 405);
+    options.setSize(221, 80);
+    stage.addActor(options);
+    stage.addActor(image);
+
+
+    resume_texture = new Texture("Resume_gaamescreen.png");
+    resume = new Image(resume_texture);
+    resume.setPosition(580, 405);
+    resume.setSize(221, 80);
+    stage.addActor(resume);
+    stage.addActor(image);
+
+
+    savegame_texture = new Texture("Save gamescreen.png");
+    savegame = new Image(savegame_texture);
+    savegame.setPosition(580, 270);
+    savegame.setSize(205, 80);
+    stage.addActor(savegame);
+    stage.addActor(image);
+
+
+    exit_texture = new Texture("Main Menu_gamescreen.png");
+    exit = new Image(exit_texture);
+    exit.setPosition(580, 135);
+    exit.setSize(205, 80);
+    stage.addActor(exit);
+    stage.addActor(image);
+
+
+    close_texture = new Texture("cross.png");
+    close = new Image(close_texture);
+    close.setPosition(860, 540);
+    close.setSize(50, 40);
+    stage.addActor(close);
+    stage.addActor(image);
+
+
+    resume.addListener(new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new GameScreen(game));
+
+        }
+    });
+    savegame.addListener(new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new GameScreen(game));
+
+        }
+    });
+    exit.addListener(new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new MainMenuScreen(game));
+
+        }
+    });
+    close.addListener(new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new GameScreen(game));
+
+        }
+    });
+
+
+}}
+
+        /*options = new Image(options_texture);
+        options.setPosition(0, 616);
+        options.setSize(110, 101);
+        stage.addActor(options);
+        stage.addActor(image);
+        */
+
+
+    //return null;
+
+
+
+
