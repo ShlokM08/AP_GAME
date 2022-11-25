@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.APGAME;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import java.awt.*;
+//import java.awt.*;
 
 import static com.badlogic.gdx.Gdx.app;
 
