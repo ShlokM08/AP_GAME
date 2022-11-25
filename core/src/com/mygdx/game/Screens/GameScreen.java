@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
 
-public class GameScreen implements Screen {
+public class    GameScreen implements Screen {
 
     private APGAME game;
     private Image image,resume,savegame,exit,close;
@@ -119,15 +119,15 @@ public void options_menu() {
     System.out.println("options menu");
     options_texture = new Texture("settingspopup.png");
     options = new Image(options_texture);
-    options.setPosition(580, 405);
-    options.setSize(221, 80);
+    options.setPosition(340, 125);
+    options.setSize(550, 550);
     stage.addActor(options);
     stage.addActor(image);
 
 
     resume_texture = new Texture("Resume_gaamescreen.png");
     resume = new Image(resume_texture);
-    resume.setPosition(580, 405);
+    resume.setPosition(530, 445);
     resume.setSize(221, 80);
     stage.addActor(resume);
     stage.addActor(image);
@@ -135,7 +135,7 @@ public void options_menu() {
 
     savegame_texture = new Texture("Save gamescreen.png");
     savegame = new Image(savegame_texture);
-    savegame.setPosition(580, 270);
+    savegame.setPosition(530, 310);
     savegame.setSize(205, 80);
     stage.addActor(savegame);
     stage.addActor(image);
@@ -143,7 +143,7 @@ public void options_menu() {
 
     exit_texture = new Texture("Main Menu_gamescreen.png");
     exit = new Image(exit_texture);
-    exit.setPosition(580, 135);
+    exit.setPosition(530, 175);
     exit.setSize(205, 80);
     stage.addActor(exit);
     stage.addActor(image);
@@ -151,7 +151,7 @@ public void options_menu() {
 
     close_texture = new Texture("cross.png");
     close = new Image(close_texture);
-    close.setPosition(860, 540);
+    close.setPosition(820, 600);
     close.setSize(50, 40);
     stage.addActor(close);
     stage.addActor(image);
