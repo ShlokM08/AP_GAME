@@ -11,10 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
 
-public class    GameScreen implements Screen {
+public class  GameScreen  implements Screen {
 
     private APGAME game;
-    private Image image,resume,savegame,exit,close;
+    private Image image,resume,savegame,exit,close,tank1;
     private Texture texture,resume_texture,savegame_texture,exit_texture,close_texture;
 
 
@@ -24,6 +24,7 @@ public class    GameScreen implements Screen {
     private Texture options_texture,settings_texture;
 
     public GameScreen(APGAME game){
+        //super(game);
         System.out.println("gamescreen");
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -157,6 +158,15 @@ public void options_menu() {
     stage.addActor(image);
 
 
+
+
+    /*tank1 = selectedtanklist.get(0);
+    selectedtanklist.get(0).setPosition(500, 650);
+    selectedtanklist.get(0).setSize(1000, 1000);
+    stage.addActor(selectedtanklist.get(0));
+    stage.addActor(image);*/
+
+//ff
     resume.addListener(new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
