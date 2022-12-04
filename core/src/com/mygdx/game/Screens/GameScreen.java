@@ -166,7 +166,7 @@ public void options_menu() {
     stage.addActor(selectedtanklist.get(0));
     stage.addActor(image);*/
 
-
+//ff
     resume.addListener(new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
