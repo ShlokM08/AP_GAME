@@ -18,6 +18,8 @@ public class TankSelection implements Screen {
     private APGAME game;
 
     private ArrayList<Image> tankList = new ArrayList<Image>();
+
+    public ArrayList<Image>selectedtanklist=new ArrayList<Image>();
     private OrthographicCamera gamecam;
     private Stage stage;
     private int tankSelected = 0;
