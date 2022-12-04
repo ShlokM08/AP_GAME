@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -22,6 +23,9 @@ public class  GameScreen  implements Screen {
     private Stage stage;
     private Image options,settings;
     private Texture options_texture,settings_texture;
+    private SpriteBatch batch;
+
+
 
     public GameScreen(APGAME game){
         //super(game);
@@ -46,6 +50,8 @@ public class  GameScreen  implements Screen {
         stage.addActor(options);
         stage.addActor(image);
 
+
+       // if(TankSelection.player1Tank == TankSelection.)
 
 
 

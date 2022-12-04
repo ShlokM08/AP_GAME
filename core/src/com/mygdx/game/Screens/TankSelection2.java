@@ -28,7 +28,14 @@ public class TankSelection2 implements Screen {
     private Texture tank1_name,tank2_name,tank3_name, right_button_image, Left_button_image, back_button_image,select_button_image;
     private Image right_button, left_button, back_button,tank1_button,tank2_button,tank3_button,select_button,player_2_button;
 
-
+    ArrayList <Image> tanklist2 = new ArrayList<Image>();
+    public static Image player2Tank;
+    public Image getTank2(){
+        return player2Tank;
+    }
+    public void setTank2(Image player2Tank){
+        this.player2Tank = player2Tank;
+    }
     public TankSelection2(APGAME game) {
         System.out.println("dei2");
         this.game = game;
@@ -177,7 +184,18 @@ public class TankSelection2 implements Screen {
                         stage.addActor(tank3_button);
                         stage.addActor(tank3_name_button);
                     }
-
+                    if(tankSelected==0){
+                        Image selectedtank1 = tanklist2.get(tankSelected);
+                        setTank2(tanklist2.get(tankSelected));
+                    }
+                    if(tankSelected==1){
+                        Image selectedtank2 = tanklist2.get(tankSelected);
+                        setTank2(tanklist2.get(tankSelected));
+                    }
+                    if(tankSelected==2){
+                        Image selectedtank3 = tanklist2.get(tankSelected);
+                        setTank2(tanklist2.get(tankSelected));
+                    }
 
 
 
@@ -226,6 +244,19 @@ public class TankSelection2 implements Screen {
                         stage.addActor(tank3_name_button);
                     }
                 }
+                if(tankSelected==0){
+                    Image selectedtank1 = tanklist2.get(tankSelected);
+                    setTank2(selectedtank1);
+                }
+                if(tankSelected==1){
+                    Image selectedtank2 = tanklist2.get(tankSelected);
+                    setTank2(selectedtank2);
+                }
+                if(tankSelected==2){
+                    Image selectedtank3 = tanklist2.get(tankSelected);
+                    setTank2(selectedtank3);
+                }
+
             }
 
         });
