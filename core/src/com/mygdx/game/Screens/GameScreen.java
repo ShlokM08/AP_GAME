@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,8 +17,20 @@ import com.mygdx.game.APGAME;
 
 public class  GameScreen  implements Screen {
 
+    private Sprite p1tank1;
+
+
+    private Sprite p1tank2;
+
+    private Sprite p1tank3;
+    private Sprite p2tank1;
+
+
+    private Sprite p2tank2;
+
+    private Sprite p2tank3;
     private APGAME game;
-    private Image image,resume,savegame,exit,close,tank1;
+    private Image image,resume,savegame,exit,close;
     private Texture texture,resume_texture,savegame_texture,exit_texture,close_texture;
 
 
@@ -24,10 +39,15 @@ public class  GameScreen  implements Screen {
     private Image options,settings;
     private Texture options_texture,settings_texture;
     private SpriteBatch batch;
+    private World world;
+    private Box2DDebugRenderer debugRenderer;
+
 
 
 
     public GameScreen(APGAME game){
+
+        batch= new SpriteBatch();
         //super(game);
         System.out.println("gamescreen");
         this.game = game;
@@ -38,6 +58,60 @@ public class  GameScreen  implements Screen {
         image = new Image(texture);
         System.out.println("s");
         stage.addActor(image);
+
+
+        if(TankSelection.player1Tank==0){
+
+            p1tank1 = new Sprite(new Texture("TANK1_IMAGE.png"));
+            p1tank1.setPosition(100, 100);
+            p1tank1.setSize(100, 100);
+            //stage.addActor(p1tank1);
+
+        }
+        else if (TankSelection.player1Tank==1) {
+
+
+            p1tank2 = new Sprite(new Texture("TANK2_IMAGE.png"));
+            p1tank2.setPosition(100, 100);
+            p1tank2.setSize(100, 100);
+
+
+        } else if (TankSelection.player1Tank==2) {
+            p1tank3 = new Sprite(new Texture("TANK3_IMAGE.png"));
+            p1tank3.setPosition(100, 100);
+            p1tank3.setSize(100, 100);
+        }
+
+
+        if(TankSelection2.player2Tank==0){
+
+            p2tank1 = new Sprite(new Texture("TANK1_IMAGE.png"));
+            p2tank1.setPosition(200, 100);
+            p2tank1.setSize(100, 100);
+            p2tank1.flip(true, false);
+
+            //stage.addActor(p1tank1);
+
+        }
+        else if (TankSelection2.player2Tank==1) {
+
+
+            p2tank2 = new Sprite(new Texture("TANK2_IMAGE.png"));
+            p2tank2.setPosition(200, 100);
+            p2tank2.setSize(100, 100);
+            //reverse image
+
+            p2tank2.flip(true, false);
+
+
+        } else if (TankSelection2.player2Tank==2) {
+            p2tank3 = new Sprite(new Texture("TANK3_IMAGE.png"));
+            p2tank3.setPosition(200, 100);
+            p2tank3.setSize(100, 100);
+            p2tank3.flip(true, false);
+        }
+
+        //
 
 
 
@@ -51,7 +125,7 @@ public class  GameScreen  implements Screen {
         stage.addActor(image);
 
 
-        //if(TankSelection.player1Tank == TankSelection.)
+        //i f(TankSelection.player1Tank == TankSelection.)
 
 
 
@@ -69,7 +143,56 @@ public class  GameScreen  implements Screen {
                 options_menu();
 
     }});
+//GROUND
+        //Body Definition
+        BodyDef bodyDef = new BodyDef();
+        world = new World(new Vector2(0, -9.8f), true);
+        debugRenderer = new Box2DDebugRenderer();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(0,0);
+        gamecam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
+
+        ChainShape groundShape = new ChainShape();
+        groundShape.createChain(new Vector2[] {
+                new Vector2(-320, -65),
+                new Vector2(-245, -65),
+                new Vector2(-178,-77),
+                new Vector2(-173,-75),
+                new Vector2(-150,-76),
+                new Vector2(-130,-75),
+                new Vector2(-95,-59),
+                new Vector2(-55,-28),
+                new Vector2(-40,-30),
+                new Vector2(-20,-28),
+                new Vector2(12,-38),
+                new Vector2(32,-55),
+                new Vector2(91,-62),
+                new Vector2(140,-33),
+                new Vector2(165,-34),
+                new Vector2(181,-43),
+                new Vector2(199,-58),
+                new Vector2(211,-62),
+                new Vector2(230,-65),
+
+
+
+                new Vector2(320,-65),
+               // new Vector2()
+        });
+
+        //fixture definition
+        FixtureDef fixtureDef = new FixtureDef();
+
+
+        fixtureDef.shape = groundShape;
+        fixtureDef.friction = .5f;
+        fixtureDef.restitution = 0;
+
+
+        world.createBody(bodyDef).createFixture(fixtureDef);
+
+        groundShape.dispose();
     }
 
     @Override
@@ -78,14 +201,35 @@ public class  GameScreen  implements Screen {
 
         update(delta);
         stage.draw();
+        debugRenderer.render(world, gamecam.combined);
 
-        game.batch.begin();
+        /*game.batch.begin();
         //game.batch.draw(game.batch.draw();,"hello",120,120);
 //        if (Gdx.input.isTouched()){
 //            game.setScreen(new MainMenuScreen(game));
 //            dispose();
 //        }
-        game.batch.end();
+        game.batch.end();*/
+
+        batch.begin();
+        if(TankSelection.player1Tank==0){
+            p1tank1.draw(batch);
+        }
+        else if (TankSelection.player1Tank==1) {
+            p1tank2.draw(batch);
+        } else if (TankSelection.player1Tank==2) {
+            p1tank3.draw(batch);
+        }
+
+        if(TankSelection2.player2Tank==0){
+            p2tank1.draw(batch);
+        }
+        else if (TankSelection2.player2Tank==1) {
+            p2tank2.draw(batch);
+        } else if (TankSelection2.player2Tank==2) {
+            p2tank3.draw(batch);
+        }
+        batch.end();
 
     }
 
