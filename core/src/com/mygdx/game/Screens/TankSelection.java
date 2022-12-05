@@ -30,11 +30,11 @@ public class TankSelection implements Screen {
     private Texture tank1_name,tank2_name,tank3_name, right_button_image, Left_button_image, back_button_image,select_button_image;
     private Image right_button, left_button, back_button,tank1_button,tank2_button,tank3_button,select_button,player_2_button;
     ArrayList <Image> tanklist = new ArrayList<Image>();
-    public static Image player1Tank;
-    public Image getTank1(){
+    public static int player1Tank;
+    public int getTank1(){
         return player1Tank;
     }
-    public void setTank1(Image player1Tank){
+    public void setTank1(int player1Tank){
         this.player1Tank = player1Tank;
     }
 
@@ -193,16 +193,13 @@ public class TankSelection implements Screen {
                     }
 
                     if(tankSelected==0){
-                        Image selectedtank1 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+                        setTank1(tankSelected);
                     }
                     if(tankSelected==1){
-                        Image selectedtank2 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+                        setTank1(tankSelected);
                     }
                     if(tankSelected==2){
-                        Image selectedtank3 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+                        setTank1(tankSelected);
                     }
 
 
@@ -255,16 +252,14 @@ public class TankSelection implements Screen {
                         stage.addActor(tank3_name_button);
                     }
                     if(tankSelected==0){
-                        Image selectedtank1 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+
+                        setTank1(tankSelected);
                     }
                     if(tankSelected==1){
-                        Image selectedtank2 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+                        setTank1(tankSelected);
                     }
                     if(tankSelected==2){
-                        Image selectedtank3 = tankList.get(tankSelected);
-                        setTank1(tankList.get(tankSelected));
+                        setTank1(tankSelected);
                     }
 
 
