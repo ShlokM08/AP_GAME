@@ -42,6 +42,8 @@ public class  GameScreen  implements Screen {
     private World world;
     private Box2DDebugRenderer debugRenderer;
 
+    private BodyDef bdef = new BodyDef();
+
 
 
 
@@ -146,13 +148,35 @@ public class  GameScreen  implements Screen {
 //GROUND
         //Body Definition
         BodyDef bodyDef = new BodyDef();
-        world = new World(new Vector2(0, -9.8f), true);
+        world = new World(new Vector2(0, -10f), true);
         debugRenderer = new Box2DDebugRenderer();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0,0);
         gamecam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
+        //fixture definition
+        FixtureDef fixtureDef2 = new FixtureDef();
 
+
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(0,0);
+        //Box
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(25, 25);
+        fixtureDef2.shape = shape;
+        fixtureDef2.density = 1.0f;
+        fixtureDef2.friction = 0.4f;
+        fixtureDef2.restitution = 0.6f;
+        // add box to world
+        world.createBody(bdef).createFixture(fixtureDef2);
+
+
+        //Body
+        Body body = world.createBody(bodyDef);
+        body.createFixture(shape, 0.0f);
+        shape.dispose();
+
+        //Ground
         ChainShape groundShape = new ChainShape();
         groundShape.createChain(new Vector2[] {
                 new Vector2(-320, -65),
@@ -182,13 +206,18 @@ public class  GameScreen  implements Screen {
         });
 
         //fixture definition
+
+
+
+//        fixtureDef.shape = groundShape;
+//        fixtureDef.friction = .5f;
+//        fixtureDef.restitution = 0.6f;
+//        fixtureDef.density = 1;
         FixtureDef fixtureDef = new FixtureDef();
-
-
-        fixtureDef.shape = groundShape;
-        fixtureDef.friction = .5f;
-        fixtureDef.restitution = 0;
-
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.4f;
+        fixtureDef.restitution = 0.6f;
 
         world.createBody(bodyDef).createFixture(fixtureDef);
 
@@ -202,6 +231,7 @@ public class  GameScreen  implements Screen {
         update(delta);
         stage.draw();
         debugRenderer.render(world, gamecam.combined);
+        world.step(1/60f, 6, 2);
 
         /*game.batch.begin();
         //game.batch.draw(game.batch.draw();,"hello",120,120);
