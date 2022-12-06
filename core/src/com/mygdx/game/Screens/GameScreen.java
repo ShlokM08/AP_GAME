@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -148,22 +149,24 @@ public class  GameScreen  implements Screen {
 //GROUND
         //Body Definition
         BodyDef bodyDef = new BodyDef();
-        world = new World(new Vector2(0, -10f), true);
+        world = new World(new Vector2(0, -9.8f), true);
+        gamecam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         debugRenderer = new Box2DDebugRenderer();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(0,0);
-        gamecam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        bodyDef.position.set(0, 0);
+        //bodyDef.position.set(0,0);
 
         //fixture definition
         FixtureDef fixtureDef2 = new FixtureDef();
 
-
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(0,0);
+        //bdef.position.set(0,0);
+
+
         //Box
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(25, 25);
-        fixtureDef2.shape = shape;
+        PolygonShape tankShape = new PolygonShape();
+        tankShape.setAsBox(25, 25);
+        fixtureDef2.shape = tankShape;
         fixtureDef2.density = 1.0f;
         fixtureDef2.friction = 0.4f;
         fixtureDef2.restitution = 0.6f;
@@ -171,37 +174,29 @@ public class  GameScreen  implements Screen {
         world.createBody(bdef).createFixture(fixtureDef2);
 
 
-        //Body
-        Body body = world.createBody(bodyDef);
-        body.createFixture(shape, 0.0f);
-        shape.dispose();
-
         //Ground
         ChainShape groundShape = new ChainShape();
         groundShape.createChain(new Vector2[] {
-                new Vector2(-320, -65),
-                new Vector2(-245, -65),
-                new Vector2(-178,-77),
-                new Vector2(-173,-75),
-                new Vector2(-150,-76),
-                new Vector2(-130,-75),
-                new Vector2(-95,-59),
-                new Vector2(-55,-28),
-                new Vector2(-40,-30),
-                new Vector2(-20,-28),
-                new Vector2(12,-38),
-                new Vector2(32,-55),
-                new Vector2(91,-62),
-                new Vector2(140,-33),
-                new Vector2(165,-34),
-                new Vector2(181,-43),
-                new Vector2(199,-58),
-                new Vector2(211,-62),
-                new Vector2(230,-65),
-
-
-
-                new Vector2(320,-65),
+                new Vector2(-320*2, -65*2),
+                new Vector2(-245*2, -65*2),
+                new Vector2(-178*2,-77*2),
+                new Vector2(-173*2,-75*2),
+                new Vector2(-150*2,-76*2),
+                new Vector2(-130*2,-75*2),
+                new Vector2(-95*2,-59*2),
+                new Vector2(-55*2,-28*2),
+                new Vector2(-40*2,-30*2),
+                new Vector2(-20*2,-28*2),
+                new Vector2(12*2,-38*2),
+                new Vector2(32*2,-55*2),
+                new Vector2(91*2,-62*2),
+                new Vector2(140*2,-33*2),
+                new Vector2(165*2,-34*2),
+                new Vector2(181*2,-43*2),
+                new Vector2(199*2,-58*2),
+                new Vector2(211*2,-62*2),
+                new Vector2(230*2,-65*2),
+                new Vector2(320*2,-65*2),
                // new Vector2()
         });
 
@@ -214,22 +209,24 @@ public class  GameScreen  implements Screen {
 //        fixtureDef.restitution = 0.6f;
 //        fixtureDef.density = 1;
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
+        fixtureDef.shape = groundShape;
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.6f;
 
         world.createBody(bodyDef).createFixture(fixtureDef);
 
-        groundShape.dispose();
+
     }
 
     @Override
     public void render(float delta) {
-        game.batch.setProjectionMatrix(gamecam.combined);
-
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         update(delta);
         stage.draw();
+        game.batch.setProjectionMatrix(gamecam.combined);
+
         debugRenderer.render(world, gamecam.combined);
         world.step(1/60f, 6, 2);
 
