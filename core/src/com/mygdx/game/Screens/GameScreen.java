@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +42,12 @@ public class  GameScreen  implements Screen {
     private Body tank2;
     private BodyDef bdef = new BodyDef();
 
+    private Vector2 mov1 = new Vector2();
+
+    private Vector2 mov2 = new Vector2();
+
+    private float speed = 75000;
+
 
 
     public GameScreen(APGAME game){
@@ -58,36 +65,36 @@ public class  GameScreen  implements Screen {
         if(TankSelection.player1Tank==0){
             p1tank1 = new Sprite(new Texture("TANK1_IMAGE.png"));
             p1tank1.setPosition(100, 100);
-            p1tank1.setSize(100, 100);
+            p1tank1.setSize(170, 100);
             //stage.addActor(p1tank1);
         }
         else if (TankSelection.player1Tank==1) {
             p1tank2 = new Sprite(new Texture("TANK2_IMAGE.png"));
             p1tank2.setPosition(100, 100);
-            p1tank2.setSize(100, 100);
+            p1tank2.setSize(125, 70);
 
         } else if (TankSelection.player1Tank==2) {
             p1tank3 = new Sprite(new Texture("TANK3_IMAGE.png"));
             p1tank3.setPosition(100, 100);
-            p1tank3.setSize(100, 100);
+            p1tank3.setSize(125, 70);
         }
         if(TankSelection2.player2Tank==0){
             p2tank1 = new Sprite(new Texture("TANK1_IMAGE.png"));
             p2tank1.setPosition(200, 100);
-            p2tank1.setSize(100, 100);
+            p2tank1.setSize(170, 100);
             p2tank1.flip(true, false);
             //stage.addActor(p1tank1);
         }
         else if (TankSelection2.player2Tank==1) {
             p2tank2 = new Sprite(new Texture("TANK2_IMAGE.png"));
             p2tank2.setPosition(200, 100);
-            p2tank2.setSize(100, 100);
+            p2tank2.setSize(125, 70);
             //reverse image
             p2tank2.flip(true, false);
         } else if (TankSelection2.player2Tank==2) {
             p2tank3 = new Sprite(new Texture("TANK3_IMAGE.png"));
             p2tank3.setPosition(200, 100);
-            p2tank3.setSize(100, 100);
+            p2tank3.setSize(125, 70);
             p2tank3.flip(true, false);
         }
 
@@ -111,6 +118,43 @@ public class  GameScreen  implements Screen {
                 options_menu();
             }
         });
+
+        Gdx.input.setInputProcessor(new InputController(){
+            @Override
+            public boolean keyDown(int keycode) {
+                switch (keycode) {
+                    case Input.Keys.A:
+                        mov1.x = -speed;
+                        break;
+                    case Input.Keys.D:
+                        mov1.x = speed;
+                        break;
+                    case Input.Keys.LEFT:
+                        mov2.x = -speed;
+                        break;
+                    case Input.Keys.RIGHT:
+                        mov2.x = speed;
+                        break;
+
+                }
+                return false;
+            }
+            @Override
+            public boolean keyUp(int keycode) {
+                switch (keycode) {
+                    case Input.Keys.A:
+                    case Input.Keys.D:
+                        mov1.x = 0;
+                        break;
+                    case Input.Keys.LEFT:
+                    case Input.Keys.RIGHT:
+                        mov2.x = 0;
+                        break;
+                }
+                return false;
+            }
+
+    });
 //GROUND
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
@@ -151,14 +195,14 @@ public class  GameScreen  implements Screen {
 
         world.createBody(bodyDef).createFixture(fixtureDef);
 
-     //Body defintions(Box for Tanks)
+        //Body defintions(Box for Tanks)
 
         bodyDefTank1.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank1.position.set(-575, 0);
         tank1 = world.createBody(bodyDefTank1);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(25, 25);
-        tank1.createFixture(shape, 1);
+        tank1.createFixture(shape, 5);
         shape.dispose();
 
         bodyDefTank2.type = BodyDef.BodyType.DynamicBody;
@@ -166,7 +210,7 @@ public class  GameScreen  implements Screen {
         tank2 = world.createBody(bodyDefTank2);
         PolygonShape shape2 = new PolygonShape();
         shape2.setAsBox(25, 25);
-        tank2.createFixture(shape2, 1);
+        tank2.createFixture(shape2, 5);
         shape2.dispose();
 
 
@@ -185,6 +229,8 @@ public class  GameScreen  implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         debugRenderer.render(world, gamecam.combined);
         world.step(1/60f, 21, 2);
+        tank1.applyForceToCenter(mov1, true);
+        tank2.applyForceToCenter(mov2, true);
 
 
 
@@ -192,24 +238,30 @@ public class  GameScreen  implements Screen {
         if(TankSelection.player1Tank==0){
             p1tank1.draw(batch);
             p1tank1.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
+            //p1tank1.setRotation((float) Math.toDegrees(tank1.getAngle()));
         }
         else if (TankSelection.player1Tank==1) {
             p1tank2.draw(batch);
             p1tank2.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
+            //p1tank2.setRotation((float) Math.toDegrees(tank1.getAngle()));
         } else if (TankSelection.player1Tank==2) {
             p1tank3.draw(batch);
             p1tank3.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
+            //p1tank3.setRotation((float) Math.toDegrees(tank1.getAngle()));
         }
         if(TankSelection2.player2Tank==0){
             p2tank1.draw(batch);
             p2tank1.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
+            //p2tank1.setRotation((float) Math.toDegrees(tank2.getAngle()));
         }
         else if (TankSelection2.player2Tank==1) {
             p2tank2.draw(batch);
             p2tank2.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
+            //p2tank2.setRotation((float) Math.toDegrees(tank2.getAngle()));
         } else if (TankSelection2.player2Tank==2) {
             p2tank3.draw(batch);
             p2tank3.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
+            //p2tank3.setRotation((float) Math.toDegrees(tank2.getAngle()));
 
         }
 
