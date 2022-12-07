@@ -195,8 +195,10 @@ public class  GameScreen  implements Screen {
         }
         else if (TankSelection.player1Tank==1) {
             p1tank2.draw(batch);
+            p1tank2.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
         } else if (TankSelection.player1Tank==2) {
             p1tank3.draw(batch);
+            p1tank3.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
         }
         if(TankSelection2.player2Tank==0){
             p2tank1.draw(batch);
@@ -204,8 +206,11 @@ public class  GameScreen  implements Screen {
         }
         else if (TankSelection2.player2Tank==1) {
             p2tank2.draw(batch);
+            p2tank2.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
         } else if (TankSelection2.player2Tank==2) {
             p2tank3.draw(batch);
+            p2tank3.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
+
         }
 
         batch.end();
