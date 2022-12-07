@@ -114,7 +114,7 @@ public class  GameScreen  implements Screen {
 //GROUND
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
-        world = new World(new Vector2(0, -9.8f), true);
+        world = new World(new Vector2(0, -9.81f), true);
         gamecam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         debugRenderer = new Box2DDebugRenderer();
         ChainShape groundShape = new ChainShape();
@@ -141,7 +141,7 @@ public class  GameScreen  implements Screen {
                 new Vector2(320*2,-65*2),
         });
 
-        //fixture definition
+        //fixture definition for ground
 
         fixtureDef.shape = groundShape;
         fixtureDef.friction = .5f;
@@ -151,47 +151,63 @@ public class  GameScreen  implements Screen {
 
         world.createBody(bodyDef).createFixture(fixtureDef);
 
+     //Body defintions(Box for Tanks)
+
+        bodyDefTank1.type = BodyDef.BodyType.DynamicBody;
+        bodyDefTank1.position.set(-575, 0);
+        tank1 = world.createBody(bodyDefTank1);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(25, 25);
+        tank1.createFixture(shape, 1);
+        shape.dispose();
+
+        bodyDefTank2.type = BodyDef.BodyType.DynamicBody;
+        bodyDefTank2.position.set(520, 0);
+        tank2 = world.createBody(bodyDefTank2);
+        PolygonShape shape2 = new PolygonShape();
+        shape2.setAsBox(25, 25);
+        tank2.createFixture(shape2, 1);
+        shape2.dispose();
+
+
+
+
+
     }
 
     @Override
     public void render(float delta) {
-        /*Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);*/
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         update(delta);
         stage.draw();
         game.batch.setProjectionMatrix(gamecam.combined);
         debugRenderer = new Box2DDebugRenderer();
         debugRenderer.render(world, gamecam.combined);
+        world.step(1/60f, 21, 2);
+
 
 
         batch.begin();
         if(TankSelection.player1Tank==0){
-
             p1tank1.draw(batch);
-            //p1tank1.setPosition(tank1.getPosition().x+575, tank1.getPosition().y+325);
-
+            p1tank1.setPosition(tank1.getPosition().x+590, tank1.getPosition().y+325);
         }
-
         else if (TankSelection.player1Tank==1) {
             p1tank2.draw(batch);
-            //  p1tank2.setPosition(tank1.getPosition().x+585, tank1.getPosition().y+325);
-
         } else if (TankSelection.player1Tank==2) {
             p1tank3.draw(batch);
-            //p1tank1.setPosition(tank1.getPosition().x+585, tank1.getPosition().y+325);
         }
-
         if(TankSelection2.player2Tank==0){
-            //attach sprite to body
             p2tank1.draw(batch);
-            //p2tank1.setPosition(tank2.getPosition().x+585, tank2.getPosition().y+325);
+            p2tank1.setPosition(tank2.getPosition().x+590, tank2.getPosition().y+325);
         }
         else if (TankSelection2.player2Tank==1) {
             p2tank2.draw(batch);
         } else if (TankSelection2.player2Tank==2) {
-
             p2tank3.draw(batch);
         }
+
         batch.end();
     }
     public void update(float delta) {
