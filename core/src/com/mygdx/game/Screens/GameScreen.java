@@ -2,18 +2,22 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
 public class  GameScreen  implements Screen {
@@ -37,6 +41,11 @@ public class  GameScreen  implements Screen {
     private BodyDef bodyDefTank1 = new BodyDef();
     private BodyDef bodyDefTank2 = new BodyDef();
 
+    private BodyDef bulletDef = new BodyDef();
+
+    private Body bulletBody;
+    private FixtureDef fixtureDefTank1 = new FixtureDef();
+
     private Body tank1;
 
     private Body tank2;
@@ -46,7 +55,14 @@ public class  GameScreen  implements Screen {
 
     private Vector2 mov2 = new Vector2();
 
-    private float speed = 75000;
+    private float speed = 80000;
+
+    private Texture fire_texture;
+
+    private Image fire;
+    InputMultiplexer multiplexer = new InputMultiplexer();
+
+
 
 
 
@@ -57,8 +73,34 @@ public class  GameScreen  implements Screen {
         this.game = game;
         gamecam = new OrthographicCamera();
         this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
-        Gdx.input.setInputProcessor(stage);
+        multiplexer.addProcessor(stage);
         texture = new Texture("GAMESCREEN.png");
+        fire_texture = new Texture("FireButton.png");
+        ImageButton fireButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(fire_texture)));
+        fireButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                bulletDef.type = BodyDef.BodyType.DynamicBody;
+                bulletDef.position.set(tank1.getPosition().x, tank1.getPosition().y+3);
+
+                fixtureDefTank1 = new FixtureDef();
+                fixtureDefTank1.density = 5f;
+                fixtureDefTank1.friction = 0.4f;
+                fixtureDefTank1.restitution = 0.6f;
+
+                CircleShape bullet = new CircleShape();
+                bullet.setRadius(10);
+                fixtureDefTank1.shape = bullet;
+
+                bulletBody = world.createBody(bulletDef);
+                bulletBody.createFixture(fixtureDefTank1);
+                bulletBody.applyLinearImpulse(110000,110000, bulletBody.getPosition().x, bulletBody.getPosition().y, true);
+
+
+            }
+        });
+        fireButton.setPosition(400,200);
+        fireButton.setSize(160,120);
         image = new Image(texture);
         System.out.println("s");
         stage.addActor(image);
@@ -98,12 +140,15 @@ public class  GameScreen  implements Screen {
             p2tank3.flip(true, false);
         }
 
+
         options_texture = new Texture("GameScreen_optionsbutton.png");
         options = new Image(options_texture);
         options.setPosition(0, 616);
         options.setSize(110, 101);
         stage.addActor(options);
         stage.addActor(image);
+        stage.addActor(fireButton);
+
 
 
 
@@ -118,8 +163,7 @@ public class  GameScreen  implements Screen {
                 options_menu();
             }
         });
-
-        Gdx.input.setInputProcessor(new InputController(){
+        multiplexer.addProcessor(new InputController(){
             @Override
             public boolean keyDown(int keycode) {
                 switch (keycode) {
@@ -154,8 +198,16 @@ public class  GameScreen  implements Screen {
                 return false;
             }
 
-    });
-//GROUND
+        });
+        Gdx.input.setInputProcessor(multiplexer);
+        //shooting a weapon ball
+
+
+
+
+
+
+        //GROUND
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
         world = new World(new Vector2(0, -9.81f), true);
@@ -202,15 +254,16 @@ public class  GameScreen  implements Screen {
         tank1 = world.createBody(bodyDefTank1);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(25, 25);
-        tank1.createFixture(shape, 5);
+        tank1.createFixture(shape, 2);
         shape.dispose();
+
 
         bodyDefTank2.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank2.position.set(520, 0);
         tank2 = world.createBody(bodyDefTank2);
         PolygonShape shape2 = new PolygonShape();
         shape2.setAsBox(25, 25);
-        tank2.createFixture(shape2, 5);
+        tank2.createFixture(shape2, 2);
         shape2.dispose();
 
 
@@ -221,9 +274,10 @@ public class  GameScreen  implements Screen {
 
     @Override
     public void render(float delta) {
+        update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        update(delta);
+        stage.act();
         stage.draw();
         game.batch.setProjectionMatrix(gamecam.combined);
         debugRenderer = new Box2DDebugRenderer();
@@ -287,6 +341,10 @@ public class  GameScreen  implements Screen {
     public void dispose() {
         stage.dispose();
     }
+
+    public void buttons(){
+
+    }
     public void options_menu() {
         System.out.println("options menu");
         options_texture = new Texture("settingspopup.png");
@@ -319,6 +377,8 @@ public class  GameScreen  implements Screen {
         close.setSize(50, 40);
         stage.addActor(close);
         stage.addActor(image);
+
+
     /*tank1 = selectedtanklist.get(0);
     selectedtanklist.get(0).setPosition(500, 650);
     selectedtanklist.get(0).setSize(1000, 1000);
