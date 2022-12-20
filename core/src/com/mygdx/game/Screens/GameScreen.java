@@ -68,8 +68,7 @@ public class  GameScreen  implements Screen {
 
     private Image fire;
     InputMultiplexer multiplexer = new InputMultiplexer();
-    float fuel = 5.5F;
-    float fuel2 = 5.5F;
+
 
 
     public GameScreen(APGAME game){
@@ -222,42 +221,232 @@ public class  GameScreen  implements Screen {
             }
         });
         multiplexer.addProcessor(new InputController(){
+            float fuel = 6;
+            float fuel2 = 6;
             @Override
+
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.A:
                         if (fuel > 0) {
                             mov1.x = -speed;
-                            fuel -= 1.5;// decrease fuel level for tank 1
 
-                            if(fuel <=4){
-                                options_texture = new Texture("settingspopup.png");
+                            if(fuel ==6 ){
+                                options_texture = new Texture("full_health_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(700, 75);
+                                options.setPosition(200, 75);
                                 options.setSize(550, 550);
                                 stage.addActor(options);
                                 stage.addActor(image);
-
-
                             }
+                            fuel -= 1;// decrease fuel level for tank 1
+
+
+
+                            if(fuel ==5 ){
+                                options_texture = new Texture("5_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==4 ){
+                                //stage.clear();
+                                options_texture = new Texture("4_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==3 ){
+                                options_texture = new Texture("3_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==2 ){
+                                options_texture = new Texture("2_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
+                            else if(fuel ==1){
+                                //stage.dispose();
+                                options_texture = new Texture("empty_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
                         }
                         break;
                     case Input.Keys.D:
                         if (fuel > 0) {
                             mov1.x = speed;
-                            fuel -= 1.5; // decrease fuel level for tank 1
+                            fuel -= 1; // decrease fuel level for tank 1
+
+                            if(fuel ==5 ){
+                                options_texture = new Texture("5_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==4 ){
+                                //stage.clear();
+                                options_texture = new Texture("4_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==3 ){
+                                options_texture = new Texture("3_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel ==2 ){
+                                options_texture = new Texture("2_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
+                            else if(fuel ==1){
+                                //stage.dispose();
+                                options_texture = new Texture("empty_fuel_Tank1.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
                         }
                         break;
                     case Input.Keys.LEFT:
                         if (fuel2 > 0) {
                             mov2.x = -speed;
-                            fuel2 -= 1.5; // decrease fuel level for tank 2
+                            fuel2 -= 1; // decrease fuel level for tank 2
+
+                            if(fuel2 ==5 ){
+                                options_texture = new Texture("5_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==4 ){
+                                //stage.clear();
+                                options_texture = new Texture("4_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==3 ){
+                                options_texture = new Texture("3_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==2 ){
+                                options_texture = new Texture("2_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
+                            else if(fuel2 ==1){
+                                //stage.dispose();
+                                options_texture = new Texture("empty_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
                         }
                         break;
                     case Input.Keys.RIGHT:
                         if (fuel2 > 0) {
                             mov2.x = speed;
-                            fuel2 -= 1.5; // decrease fuel level for tank 2.
+                            fuel2 -= 1; // decrease fuel level for tank 2.
+                            if(fuel2 ==5 ){
+                                options_texture = new Texture("5_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==4 ){
+                                //stage.clear();
+                                options_texture = new Texture("4_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==3 ){
+                                options_texture = new Texture("3_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+                            else if(fuel2 ==2 ){
+                                options_texture = new Texture("2_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
+                            else if(fuel2 ==1){
+                                //stage.dispose();
+                                options_texture = new Texture("empty_fuel_Tank2.png");
+                                options = new Image(options_texture);
+                                options.setPosition(200, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+                            }
+
+
                         }
                         break;
 
