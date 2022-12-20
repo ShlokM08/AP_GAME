@@ -68,8 +68,8 @@ public class  GameScreen  implements Screen {
 
     private Image fire;
     InputMultiplexer multiplexer = new InputMultiplexer();
-    float fuel = 7;
-    float fuel2 = 7;
+    float fuel = 5.5F;
+    float fuel2 = 5.5F;
 
 
     public GameScreen(APGAME game){
@@ -228,25 +228,25 @@ public class  GameScreen  implements Screen {
                     case Input.Keys.A:
                         if (fuel > 0) {
                             mov1.x = -speed;
-                            fuel -= 2; // decrease fuel level for tank 1
+                            fuel -= 1.5; // decrease fuel level for tank 1
                         }
                         break;
                     case Input.Keys.D:
                         if (fuel > 0) {
                             mov1.x = speed;
-                            fuel -= 2; // decrease fuel level for tank 1
+                            fuel -= 1.5; // decrease fuel level for tank 1
                         }
                         break;
                     case Input.Keys.LEFT:
                         if (fuel2 > 0) {
                             mov2.x = -speed;
-                            fuel2 -= 2; // decrease fuel level for tank 2
+                            fuel2 -= 1.5; // decrease fuel level for tank 2
                         }
                         break;
                     case Input.Keys.RIGHT:
                         if (fuel2 > 0) {
                             mov2.x = speed;
-                            fuel2 -= 2; // decrease fuel level for tank 2.
+                            fuel2 -= 1.5; // decrease fuel level for tank 2.
                         }
                         break;
 
