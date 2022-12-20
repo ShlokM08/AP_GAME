@@ -228,7 +228,18 @@ public class  GameScreen  implements Screen {
                     case Input.Keys.A:
                         if (fuel > 0) {
                             mov1.x = -speed;
-                            fuel -= 1.5; // decrease fuel level for tank 1
+                            fuel -= 1.5;// decrease fuel level for tank 1
+
+                            if(fuel <=4){
+                                options_texture = new Texture("settingspopup.png");
+                                options = new Image(options_texture);
+                                options.setPosition(700, 75);
+                                options.setSize(550, 550);
+                                stage.addActor(options);
+                                stage.addActor(image);
+
+
+                            }
                         }
                         break;
                     case Input.Keys.D:
