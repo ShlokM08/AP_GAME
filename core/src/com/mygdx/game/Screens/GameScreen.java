@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 //latest code as of 18/12/2022
 public class  GameScreen  implements Screen {
     private Sprite p1tank1;
@@ -67,6 +68,8 @@ public class  GameScreen  implements Screen {
 
     private Image fire;
     InputMultiplexer multiplexer = new InputMultiplexer();
+    float fuel = 7;
+    float fuel2 = 7;
 
 
     public GameScreen(APGAME game){
@@ -109,11 +112,14 @@ public class  GameScreen  implements Screen {
 
             }
         });
-        fireButton.setPosition(200,200);
+        fireButton.setPosition(200,50);
         fireButton.setSize(160,120);
         /*if(Intersector.overlaps(new Rectangle(tank1.getPosition().x,tank1.getPosition().y,100,100),new Rectangle(bulletBody.getPosition().x,bulletBody.getPosition().y,100,100))){
             System.out.println("Intersected");
         }*/
+        //collision detection
+
+
 
 
 
@@ -145,7 +151,7 @@ public class  GameScreen  implements Screen {
 
             }
         });
-        FireButton2.setPosition(400,200);
+        FireButton2.setPosition(875,50);
         FireButton2.setSize(160,120);
 
 
@@ -220,21 +226,34 @@ public class  GameScreen  implements Screen {
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.A:
-                        mov1.x = -speed;
+                        if (fuel > 0) {
+                            mov1.x = -speed;
+                            fuel -= 2; // decrease fuel level for tank 1
+                        }
                         break;
                     case Input.Keys.D:
-                        mov1.x = speed;
+                        if (fuel > 0) {
+                            mov1.x = speed;
+                            fuel -= 2; // decrease fuel level for tank 1
+                        }
                         break;
                     case Input.Keys.LEFT:
-                        mov2.x = -speed;
+                        if (fuel2 > 0) {
+                            mov2.x = -speed;
+                            fuel2 -= 2; // decrease fuel level for tank 2
+                        }
                         break;
                     case Input.Keys.RIGHT:
-                        mov2.x = speed;
+                        if (fuel2 > 0) {
+                            mov2.x = speed;
+                            fuel2 -= 2; // decrease fuel level for tank 2
+                        }
                         break;
 
                 }
                 return false;
             }
+
             @Override
             public boolean keyUp(int keycode) {
                 switch (keycode) {
@@ -301,6 +320,7 @@ public class  GameScreen  implements Screen {
         world.createBody(bodyDef).createFixture(fixtureDef);
 
         //Body defintions(Box for Tanks)
+        Vector2[] tankVertices = new Vector2[4];
 
         bodyDefTank1.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank1.position.set(-575, 0);
@@ -409,8 +429,6 @@ public class  GameScreen  implements Screen {
     }
 
     public void CollisionDetector(){
-
-
 
     }
     public void options_menu() {
