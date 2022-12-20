@@ -246,14 +246,14 @@ public class  GameScreen  implements Screen {
                     case Input.Keys.RIGHT:
                         if (fuel2 > 0) {
                             mov2.x = speed;
-                            fuel2 -= 2; // decrease fuel level for tank 2
+                            fuel2 -= 2; // decrease fuel level for tank 2.
                         }
                         break;
 
                 }
                 return false;
             }
-
+//IJLLIO
             @Override
             public boolean keyUp(int keycode) {
                 switch (keycode) {
