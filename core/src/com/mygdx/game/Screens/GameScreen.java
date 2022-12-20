@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
+import com.badlogic.gdx.math.Rectangle;
 //latest code as of 18/12/2022
 public class  GameScreen  implements Screen {
     private Sprite p1tank1;
@@ -43,9 +45,12 @@ public class  GameScreen  implements Screen {
     private BodyDef bodyDefTank2 = new BodyDef();
 
     private BodyDef bulletDef = new BodyDef();
+    private BodyDef bulletDef2 = new BodyDef();
 
     private Body bulletBody;
+    private Body bulletBody2;
     private FixtureDef fixtureDefTank1 = new FixtureDef();
+    private FixtureDef fixtureDefTank2 = new FixtureDef();
 
     private Body tank1;
 
@@ -58,13 +63,10 @@ public class  GameScreen  implements Screen {
 
     private float speed = 80000;
 
-    private Texture fire_texture;
+    private Texture fire_texture,fire_texture2;
 
     private Image fire;
     InputMultiplexer multiplexer = new InputMultiplexer();
-
-
-
 
 
     public GameScreen(APGAME game){
@@ -77,12 +79,14 @@ public class  GameScreen  implements Screen {
         multiplexer.addProcessor(stage);
         texture = new Texture("GAMESCREEN.png");
         fire_texture = new Texture("FireButton.png");
+        fire_texture2 = new Texture("FireButton.png");
+        ImageButton FireButton2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(fire_texture2)));
         ImageButton fireButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(fire_texture)));
         fireButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 bulletDef.type = BodyDef.BodyType.DynamicBody;
-                bulletDef.position.set(tank1.getPosition().x, tank1.getPosition().y+3);
+                bulletDef.position.set(tank1.getPosition().x+100, tank1.getPosition().y+15);
 
                 fixtureDefTank1 = new FixtureDef();
                 fixtureDefTank1.density = 5f;
@@ -97,11 +101,57 @@ public class  GameScreen  implements Screen {
                 bulletBody.createFixture(fixtureDefTank1);
                 bulletBody.applyLinearImpulse(110000,110000, bulletBody.getPosition().x, bulletBody.getPosition().y, true);
 
+                //checking collision
+                if (Intersector.overlaps(new Rectangle(bulletBody.getPosition().x, bulletBody.getPosition().y, 10, 10), new Rectangle(tank2.getPosition().x, tank2.getPosition().y, 100, 100))) {
+                    System.out.println("collision of tank1 bullet with tank2");
+                }
+
 
             }
         });
-        fireButton.setPosition(400,200);
+        fireButton.setPosition(200,200);
         fireButton.setSize(160,120);
+        /*if(Intersector.overlaps(new Rectangle(tank1.getPosition().x,tank1.getPosition().y,100,100),new Rectangle(bulletBody.getPosition().x,bulletBody.getPosition().y,100,100))){
+            System.out.println("Intersected");
+        }*/
+
+
+
+        FireButton2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                bulletDef2.type = BodyDef.BodyType.DynamicBody;
+                bulletDef2.position.set(tank2.getPosition().x-45, tank2.getPosition().y+15);
+
+                fixtureDefTank2 = new FixtureDef();
+                fixtureDefTank2.density = 5f;
+                fixtureDefTank2.friction = 0.4f;
+                fixtureDefTank2.restitution = 0.6f;
+
+                CircleShape bullet2 = new CircleShape();
+                bullet2.setRadius(10);
+                fixtureDefTank2.shape = bullet2;
+
+                bulletBody2 = world.createBody(bulletDef2);
+                bulletBody2.createFixture(fixtureDefTank2);
+                bulletBody2.applyLinearImpulse(-150000,110000, bulletBody2.getPosition().x, bulletBody2.getPosition().y, true);
+
+
+                //checking collision
+                if (Intersector.overlaps(new Rectangle(bulletBody2.getPosition().x, bulletBody2.getPosition().y, 10, 10), new Rectangle(tank1.getPosition().x, tank1.getPosition().y, 100, 100))) {
+                    System.out.println("collision of tank2 bullet with tank1");
+                }
+
+
+            }
+        });
+        FireButton2.setPosition(400,200);
+        FireButton2.setSize(160,120);
+
+
+
+
+
         image = new Image(texture);
         System.out.println("s");
         stage.addActor(image);
@@ -149,6 +199,7 @@ public class  GameScreen  implements Screen {
         stage.addActor(options);
         stage.addActor(image);
         stage.addActor(fireButton);
+        stage.addActor(FireButton2);
 
 
 
@@ -208,6 +259,7 @@ public class  GameScreen  implements Screen {
 
 
 
+
         //GROUND
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
@@ -252,6 +304,7 @@ public class  GameScreen  implements Screen {
 
         bodyDefTank1.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank1.position.set(-575, 0);
+        bodyDefTank1.fixedRotation = true;
         tank1 = world.createBody(bodyDefTank1);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(25, 25);
@@ -261,11 +314,23 @@ public class  GameScreen  implements Screen {
 
         bodyDefTank2.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank2.position.set(520, 0);
+        bodyDefTank2.fixedRotation = true;
         tank2 = world.createBody(bodyDefTank2);
         PolygonShape shape2 = new PolygonShape();
         shape2.setAsBox(25, 25);
         tank2.createFixture(shape2, 2);
         shape2.dispose();
+
+
+
+        /*if(tank1.getPosition().x>tank2.getPosition().x){
+            tank1.applyForceToCenter(-100,0,true);
+            tank2.applyForceToCenter(100,0,true);
+        }
+        else if(tank1.getPosition().x<tank2.getPosition().x){
+            tank1.applyForceToCenter(100,0,true);
+            tank2.applyForceToCenter(-100,0,true);
+        }*/
 
 
 
@@ -343,7 +408,9 @@ public class  GameScreen  implements Screen {
         stage.dispose();
     }
 
-    public void buttons(){
+    public void CollisionDetector(){
+
+
 
     }
     public void options_menu() {
