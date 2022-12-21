@@ -111,7 +111,7 @@ public class  GameScreen  implements Screen {
 
             }
         });
-        fireButton.setPosition(200,50);
+        fireButton.setPosition(250,50);
         fireButton.setSize(160,120);
         /*if(Intersector.overlaps(new Rectangle(tank1.getPosition().x,tank1.getPosition().y,100,100),new Rectangle(bulletBody.getPosition().x,bulletBody.getPosition().y,100,100))){
             System.out.println("Intersected");
@@ -234,8 +234,8 @@ public class  GameScreen  implements Screen {
                             if(fuel ==6 ){
                                 options_texture = new Texture("full_health_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -246,8 +246,8 @@ public class  GameScreen  implements Screen {
                             if(fuel ==5 ){
                                 options_texture = new Texture("5_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -255,24 +255,24 @@ public class  GameScreen  implements Screen {
                                 //stage.clear();
                                 options_texture = new Texture("4_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel ==3 ){
                                 options_texture = new Texture("3_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel ==2 ){
                                 options_texture = new Texture("2_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -282,8 +282,8 @@ public class  GameScreen  implements Screen {
                                 //stage.dispose();
                                 options_texture = new Texture("empty_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -299,8 +299,8 @@ public class  GameScreen  implements Screen {
                             if(fuel ==5 ){
                                 options_texture = new Texture("5_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -308,24 +308,24 @@ public class  GameScreen  implements Screen {
                                 //stage.clear();
                                 options_texture = new Texture("4_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel ==3 ){
                                 options_texture = new Texture("3_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel ==2 ){
                                 options_texture = new Texture("2_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -335,8 +335,8 @@ public class  GameScreen  implements Screen {
                                 //stage.dispose();
                                 options_texture = new Texture("empty_fuel_Tank1.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(35, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -352,8 +352,8 @@ public class  GameScreen  implements Screen {
                             if(fuel2 ==5 ){
                                 options_texture = new Texture("5_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -361,24 +361,24 @@ public class  GameScreen  implements Screen {
                                 //stage.clear();
                                 options_texture = new Texture("4_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel2 ==3 ){
                                 options_texture = new Texture("3_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel2 ==2 ){
                                 options_texture = new Texture("2_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -388,8 +388,8 @@ public class  GameScreen  implements Screen {
                                 //stage.dispose();
                                 options_texture = new Texture("empty_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -404,8 +404,8 @@ public class  GameScreen  implements Screen {
                             if(fuel2 ==5 ){
                                 options_texture = new Texture("5_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -413,24 +413,24 @@ public class  GameScreen  implements Screen {
                                 //stage.clear();
                                 options_texture = new Texture("4_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel2 ==3 ){
                                 options_texture = new Texture("3_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
                             else if(fuel2 ==2 ){
                                 options_texture = new Texture("2_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
@@ -440,8 +440,8 @@ public class  GameScreen  implements Screen {
                                 //stage.dispose();
                                 options_texture = new Texture("empty_fuel_Tank2.png");
                                 options = new Image(options_texture);
-                                options.setPosition(200, 75);
-                                options.setSize(550, 550);
+                                options.setPosition(1075, 87);
+                                options.setSize(175, 75);
                                 stage.addActor(options);
                                 stage.addActor(image);
                             }
