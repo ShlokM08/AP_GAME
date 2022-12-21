@@ -1,5 +1,5 @@
 package com.mygdx.game.Screens;
-
+import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,8 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.APGAME;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
+
 //latest code as of 18/12/2022
 public class  GameScreen  implements Screen {
     private Sprite p1tank1;
@@ -30,14 +27,14 @@ public class  GameScreen  implements Screen {
     private Sprite p1tank3;
     private Sprite p2tank1;
     private Sprite p2tank2;
-    private Sprite p2tank3;
+    private Sprite p2tank3,bullet_sprite;
     private APGAME game;
     private Image image,resume,savegame,exit,close;
-    private Texture texture,resume_texture,savegame_texture,exit_texture,close_texture;
+    private Texture texture,resume_texture,savegame_texture,exit_texture,close_texture,bullet_texture;
     private OrthographicCamera gamecam;
     private Stage stage;
-    private Image options,settings;
-    private Texture options_texture,settings_texture;
+    private Image options;
+    private Texture options_texture;
     private SpriteBatch batch;
     private World world;
     private Box2DDebugRenderer debugRenderer;
@@ -45,8 +42,8 @@ public class  GameScreen  implements Screen {
     private BodyDef bodyDefTank1 = new BodyDef();
     private BodyDef bodyDefTank2 = new BodyDef();
 
-    private BodyDef bulletDef = new BodyDef();
-    private BodyDef bulletDef2 = new BodyDef();
+   /* private BodyDef bulletDef = new BodyDef();
+    private BodyDef bulletDef2 = new BodyDef();*/
 
     private Body bulletBody;
     private Body bulletBody2;
@@ -54,9 +51,10 @@ public class  GameScreen  implements Screen {
     private FixtureDef fixtureDefTank2 = new FixtureDef();
 
     private Body tank1;
+    public float fuel = 6;
 
+    public float fuel2 = 6;
     private Body tank2;
-    private BodyDef bdef = new BodyDef();
 
     private Vector2 mov1 = new Vector2();
 
@@ -66,12 +64,17 @@ public class  GameScreen  implements Screen {
 
     private Texture fire_texture,fire_texture2;
 
-    private Image fire;
     InputMultiplexer multiplexer = new InputMultiplexer();
 
 
 
     public GameScreen(APGAME game){
+        world = new World(new Vector2(0, -9.81f), true);
+
+        this.world.setContactListener(new Collision());
+
+
+
         batch= new SpriteBatch();
         //super(game);
         System.out.println("gamescreen");
@@ -80,80 +83,99 @@ public class  GameScreen  implements Screen {
         this.stage = new Stage(new StretchViewport(1280, 720, gamecam));
         multiplexer.addProcessor(stage);
         texture = new Texture("GAMESCREEN.png");
+
+
         fire_texture = new Texture("FireButton.png");
         fire_texture2 = new Texture("FireButton.png");
         ImageButton FireButton2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(fire_texture2)));
         ImageButton fireButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(fire_texture)));
+
+
         fireButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                fuel=6;
+                if(fuel == 6){
+                    options_texture = new Texture("full_health_Tank1.png");
+                    options = new Image(options_texture);
+                    options.setPosition(35, 87);
+                    options.setSize(175, 75);
+                    stage.addActor(options);
+                    stage.addActor(image);
+                }
+                BodyDef bulletDef = new BodyDef();
                 bulletDef.type = BodyDef.BodyType.DynamicBody;
                 bulletDef.position.set(tank1.getPosition().x+100, tank1.getPosition().y+15);
 
+
+
+
+                CircleShape bullet = new CircleShape();
+                bullet.setRadius(10F);
+
                 fixtureDefTank1 = new FixtureDef();
+                fixtureDefTank1.shape = bullet;
                 fixtureDefTank1.density = 5f;
                 fixtureDefTank1.friction = 0.4f;
                 fixtureDefTank1.restitution = 0.6f;
 
-                CircleShape bullet = new CircleShape();
-                bullet.setRadius(10);
-                fixtureDefTank1.shape = bullet;
-
                 bulletBody = world.createBody(bulletDef);
                 bulletBody.createFixture(fixtureDefTank1);
                 bulletBody.applyLinearImpulse(110000,110000, bulletBody.getPosition().x, bulletBody.getPosition().y, true);
-
-                //checking collision
-                if (Intersector.overlaps(new Rectangle(bulletBody.getPosition().x, bulletBody.getPosition().y, 10, 10), new Rectangle(tank2.getPosition().x, tank2.getPosition().y, 100, 100))) {
-                    System.out.println("collision of tank1 bullet with tank2");
-                }
+                bulletBody.createFixture(fixtureDefTank1).setUserData("bullet");
 
 
-            }
-        });
-        fireButton.setPosition(250,50);
+            }});
+        fireButton.setPosition(200,50);
         fireButton.setSize(160,120);
-        /*if(Intersector.overlaps(new Rectangle(tank1.getPosition().x,tank1.getPosition().y,100,100),new Rectangle(bulletBody.getPosition().x,bulletBody.getPosition().y,100,100))){
-            System.out.println("Intersected");
-        }*/
-        //collision detection
-
-
-
 
 
         FireButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                fuel2=6;
+                if(fuel2 == 6){
+
+                    options_texture = new Texture("full_health_Tank2.png");
+                    options = new Image(options_texture);
+                    options.setPosition(1075, 87);
+                    options.setSize(175, 75);
+                    stage.addActor(options);
+                    stage.addActor(image);
+
+                }
+
+                BodyDef bulletDef2 = new BodyDef();
                 bulletDef2.type = BodyDef.BodyType.DynamicBody;
                 bulletDef2.position.set(tank2.getPosition().x-45, tank2.getPosition().y+15);
 
+
+
+                CircleShape bullet2 = new CircleShape();
+                bullet2.setRadius(10);
+                bullet_texture = new Texture("rightarrow.png");
+                bullet_sprite = new Sprite(bullet_texture);
+                bullet_sprite.setPosition(bulletDef2.position.x,bulletDef2.position.y);
+                bullet_sprite.setSize(20,20);
+                batch.begin();
+                bullet_sprite.draw(batch);
+                batch.end();
+
+
                 fixtureDefTank2 = new FixtureDef();
+                fixtureDefTank2.shape = bullet2;
                 fixtureDefTank2.density = 5f;
                 fixtureDefTank2.friction = 0.4f;
                 fixtureDefTank2.restitution = 0.6f;
 
-                CircleShape bullet2 = new CircleShape();
-                bullet2.setRadius(10);
-                fixtureDefTank2.shape = bullet2;
-
                 bulletBody2 = world.createBody(bulletDef2);
                 bulletBody2.createFixture(fixtureDefTank2);
                 bulletBody2.applyLinearImpulse(-150000,110000, bulletBody2.getPosition().x, bulletBody2.getPosition().y, true);
+                bulletBody2.createFixture(fixtureDefTank2).setUserData("bullet2");
 
-
-                //checking collision
-                if (Intersector.overlaps(new Rectangle(bulletBody2.getPosition().x, bulletBody2.getPosition().y, 10, 10), new Rectangle(tank1.getPosition().x, tank1.getPosition().y, 100, 100))) {
-                    System.out.println("collision of tank2 bullet with tank1");
-                }
-
-
-            }
-        });
+                }});
         FireButton2.setPosition(875,50);
         FireButton2.setSize(160,120);
-
-
 
 
 
@@ -213,16 +235,39 @@ public class  GameScreen  implements Screen {
     }
     @Override
     public void show() {
-        //options_menu();
         options.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 options_menu();
             }
         });
+
+
+        //Full fuel tank initially for both tanks
+        if(fuel == 6){
+            options_texture = new Texture("full_health_Tank1.png");
+            options = new Image(options_texture);
+            options.setPosition(35, 87);
+            options.setSize(175, 75);
+            stage.addActor(options);
+            stage.addActor(image);
+        }
+
+        if(fuel2 == 6){
+
+            options_texture = new Texture("full_health_Tank2.png");
+            options = new Image(options_texture);
+            options.setPosition(1075, 87);
+            options.setSize(175, 75);
+            stage.addActor(options);
+            stage.addActor(image);
+
+        }
+
+
+
         multiplexer.addProcessor(new InputController(){
-            float fuel = 6;
-            float fuel2 = 6;
+
             @Override
 
             public boolean keyDown(int keycode) {
@@ -230,16 +275,9 @@ public class  GameScreen  implements Screen {
                     case Input.Keys.A:
                         if (fuel > 0) {
                             mov1.x = -speed;
+                            fuel -= 1;
 
-                            if(fuel ==6 ){
-                                options_texture = new Texture("full_health_Tank1.png");
-                                options = new Image(options_texture);
-                                options.setPosition(35, 87);
-                                options.setSize(175, 75);
-                                stage.addActor(options);
-                                stage.addActor(image);
-                            }
-                            fuel -= 1;// decrease fuel level for tank 1
+                            //fuel -= 1;// decrease fuel level for tank 1
 
 
 
@@ -453,7 +491,7 @@ public class  GameScreen  implements Screen {
                 }
                 return false;
             }
-//IJLLIO
+            //IJLLIO
             @Override
             public boolean keyUp(int keycode) {
                 switch (keycode) {
@@ -482,7 +520,8 @@ public class  GameScreen  implements Screen {
         //GROUND
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
-        world = new World(new Vector2(0, -9.81f), true);
+        /*world = new World(new Vector2(0, -9.81f), true);
+        this.world.setContactListener(new Collision());*/
         gamecam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         debugRenderer = new Box2DDebugRenderer();
         ChainShape groundShape = new ChainShape();
@@ -517,10 +556,11 @@ public class  GameScreen  implements Screen {
         fixtureDef.density = 1f;
 
 
+
         world.createBody(bodyDef).createFixture(fixtureDef);
 
         //Body defintions(Box for Tanks)
-        Vector2[] tankVertices = new Vector2[4];
+        // Vector2[] tankVertices = new Vector2[4];
 
         bodyDefTank1.type = BodyDef.BodyType.DynamicBody;
         bodyDefTank1.position.set(-575, 0);
@@ -528,8 +568,9 @@ public class  GameScreen  implements Screen {
         tank1 = world.createBody(bodyDefTank1);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(25, 25);
-        tank1.createFixture(shape, 2);
-        shape.dispose();
+        tank1.createFixture(shape, 2).setUserData("tank1");
+        //tank1.createFixture().setUserData("tank1");
+        //shape.dispose();
 
 
         bodyDefTank2.type = BodyDef.BodyType.DynamicBody;
@@ -538,8 +579,9 @@ public class  GameScreen  implements Screen {
         tank2 = world.createBody(bodyDefTank2);
         PolygonShape shape2 = new PolygonShape();
         shape2.setAsBox(25, 25);
-        tank2.createFixture(shape2, 2);
-        shape2.dispose();
+        tank2.createFixture(shape2, 2).setUserData("tank2");
+        //tank2.setUserData("tank2");
+        //shape2.dispose();
 
 
 
@@ -560,6 +602,8 @@ public class  GameScreen  implements Screen {
 
     @Override
     public void render(float delta) {
+
+
         update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -628,9 +672,7 @@ public class  GameScreen  implements Screen {
         stage.dispose();
     }
 
-    public void CollisionDetector(){
 
-    }
     public void options_menu() {
         System.out.println("options menu");
         options_texture = new Texture("settingspopup.png");
